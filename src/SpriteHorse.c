@@ -22,8 +22,6 @@ void printPlayerPosition() {
 }
 
 void UPDATE(void) {
-  UINT8 i;
-  Sprite *spr;
   UINT8 step = 1;
 
   // hold A button to speed up
@@ -40,11 +38,11 @@ void UPDATE(void) {
   */
   if (KEY_PRESSED(J_LEFT)) {
     TranslateSprite(THIS, -step << delta_time, 0);
-    SetSpriteAnim(THIS, anim_walk, 10);
+    SetSpriteAnim(THIS, anim_walk, 10 * step);
     printPlayerPosition();
   } else if (KEY_PRESSED(J_RIGHT)) {
     TranslateSprite(THIS, step << delta_time, 0);
-    SetSpriteAnim(THIS, anim_walk, 10);
+    SetSpriteAnim(THIS, anim_walk, 10 * step);
     printPlayerPosition();
   } else if (keys == 0) {
     SetSpriteAnim(THIS, anim_walk, 10);
