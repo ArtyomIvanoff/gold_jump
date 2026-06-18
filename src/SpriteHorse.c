@@ -28,8 +28,21 @@ void printPlayerPosition() {
   DPrintf("x:%d y:%d \n  ", THIS->x, THIS->y);
 }
 
+const UINT8 *getCurrentHorseAnimation() {
+  if (is_rider_jumped) {
+    return anim_run_alone;
+  }
+
+  return anim_run_with_rider;
+}
+
 void UPDATE(void) {
   UINT8 step = 1;
+  UINT8 *current_anim;
+
+  if (KEY_PRESSED(J_B)) {
+    is_rider_jumped = true;
+  }
 
   // hold A button to speed up
   if (KEY_PRESSED(J_A)) {
@@ -44,22 +57,15 @@ void UPDATE(void) {
   https://zalods.blogspot.com/2016/07/game-boy-development-tips-and-tricks-ii.html
   */
   if (KEY_PRESSED(J_LEFT)) {
-    is_rider_jumped = true;
     TranslateSprite(THIS, -step << delta_time, 0);
-    SetSpriteAnim(THIS, anim_run_alone, 10 * step);
+    SetSpriteAnim(THIS, getCurrentHorseAnimation(), 10 * step);
     printPlayerPosition();
   } else if (KEY_PRESSED(J_RIGHT)) {
-    is_rider_jumped = true;
     TranslateSprite(THIS, step << delta_time, 0);
-    SetSpriteAnim(THIS, anim_run_alone, 10 * step);
+    SetSpriteAnim(THIS, getCurrentHorseAnimation(), 10 * step);
     printPlayerPosition();
   } else if (keys == 0) {
-    if (is_rider_jumped) {
-      SetSpriteAnim(THIS, anim_run_alone, 10);
-      return;
-    }
-
-     SetSpriteAnim(THIS, anim_run_with_rider, 10);
+    SetSpriteAnim(THIS, getCurrentHorseAnimation(), 10);
   }
 }
 
