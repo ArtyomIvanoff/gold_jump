@@ -18,12 +18,13 @@ sprite and background tiles: "-px 2 -py 0 -pw 12 -ph 16"
 */
 UINT8 collision_tiles[] = {1, 2, 0};
 
+const UINT16 initial_horse_x = SCREEN_WIDTH/2;
+const  UINT16 initial_horse_y = SCREEN_HEIGHT * 0.95;
+
 IMPORT_MAP(map);
 
 void START(void) {
   // spawn the horse below the screen center
-  UINT16 initial_horse_x = SCREEN_WIDTH/2;
-  UINT16 initial_horse_y = SCREEN_HEIGHT * 0.85;
   scroll_target = SpriteManagerAdd(SpriteHorse, initial_horse_x, initial_horse_y);
   InitScroll(BANK(map), &map, collision_tiles, 0);
 }
